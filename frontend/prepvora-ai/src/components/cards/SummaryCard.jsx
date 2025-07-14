@@ -18,23 +18,23 @@ const SummaryCard = ({
       className="relative bg-white border border-gray-200 rounded-xl shadow-sm hover:shadow-lg transition-shadow duration-300 cursor-pointer group"
       onClick={onSelect}
     >
-      {/* Header Section */}
+      {/* Header */}
       <div
         className="rounded-t-xl p-4 flex gap-4 items-start"
         style={{ background: colors.bgcolor }}
       >
-        {/* Icon or Initials */}
+        {/* Initials */}
         <div className="w-12 h-12 bg-white rounded-md flex items-center justify-center text-lg font-semibold text-black shadow">
           {getInitials(role)}
         </div>
 
-        {/* Title & Tags */}
+        {/* Role and Topics */}
         <div className="flex-1">
-          <div className="flex justify-between items-start">
+          <div className="flex justify-between items-start gap-2">
             <h2 className="text-[17px] font-medium text-gray-900">{role}</h2>
-            <p className="text-xs text-gray-700 whitespace-nowrap">
-              {topicsToFocus}
-            </p>
+           <p className="text-xs text-gray-700 text-right break-words">
+  {topicsToFocus}
+</p>
           </div>
         </div>
 
@@ -50,22 +50,20 @@ const SummaryCard = ({
         </button>
       </div>
 
-      {/* Footer Section */}
+      {/* Footer */}
       <div className="px-4 py-3 space-y-3">
-        {/* Tags */}
         <div className="flex flex-wrap gap-2 text-[10px] font-medium text-black">
           <span className="px-3 py-1 border border-gray-900 rounded-full">
             Experience: {experience} {experience === 1 ? "Year" : "Years"}
           </span>
           <span className="px-3 py-1 border border-gray-900 rounded-full">
-            {questions} Q&A
+            {questions}
           </span>
           <span className="px-3 py-1 border border-gray-900 rounded-full">
             Last Updated: {lastUpdated}
           </span>
         </div>
 
-        {/* Description */}
         <p className="text-[12px] text-gray-600 font-medium line-clamp-2">
           {description}
         </p>

@@ -8,34 +8,45 @@ exports.addQuestionsToSession = async (req, res) => {
   try {
     const { sessionId, questions } = req.body;
 
-    if(!sessionId || !questions || !Array.isArray(questions)) {
-        return res(400).json({ message: "Invalid input data" });
+    if (!sessionId || !Array.isArray(questions)) {
+      return res.status(400).json({ message: "Invalid input data" });
+    }
+
+    if (!questions.every(q => q.question && q.answer)) {
+      return res.status(400).json({ message: "Each question must have 'question' and 'answer'" });
     }
 
     const session = await Session.findById(sessionId);
 
-    if(!session) {
-        return res.status(404).json({message: "Session not found"});
+    if (!session) {
+      return res.status(404).json({ message: "Session not found" });
     }
 
-    // Create New Questions
     const createdQuestions = await Question.insertMany(
-        questions.map((q) => ({
-            session: sessionId,
-            question: q.question,
-            answer: q.answer,
-        }))
+      questions.map((q) => ({
+        session: sessionId,
+        question: q.question,
+        answer: q.answer,
+      }))
     );
 
-    // Update session to include new question IDs
-    session.question.push(...createdQuestions.map((q) => q._id));
+    if (!Array.isArray(session.questions)) {
+      session.questions = [];
+    }
+
+    session.questions.push(...createdQuestions.map((q) => q._id));
     await session.save();
 
-    res.status(201).json(createdQuestions);
+    return res.status(201).json(createdQuestions);
   } catch (error) {
-    res.status(500).json({ message: "Server Error" });
+    return res.status(500).json({
+      message: "Server Error",
+      error: error.message
+    });
   }
 };
+
+
 
 // @desc    Pin or unpin a question
 // @route   POST /api/questions/:id/pin
@@ -56,7 +67,7 @@ await question.save();
 res.status(200).json({ success: true, question });
 
     } catch(error){
-    res.status(500).json({ message: "Server Error" });
+    res.status(500).json({ message: "Server Error", error: error.message });
 
     }
 };
@@ -80,6 +91,6 @@ exports.updateQuestionNote = async (req, res) => {
 
     res.status(200).json({ success: true, question });
   } catch (error) {
-    res.status(500).json({ message: "Server Error" });
+    res.status(500).json({ message: "Server Error", error: error.message });
   }
 };
