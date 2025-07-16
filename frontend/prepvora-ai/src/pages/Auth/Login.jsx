@@ -11,9 +11,8 @@ const Login = ({ setCurrentPage }) => {
   const [password, setPassword] = useState("");
   const [error, setError] = useState(null);
 
-const { updateUser } = useContext(UserContext);
-
-const navigate = useNavigate();
+  const { updateUser } = useContext(UserContext);
+  const navigate = useNavigate();
 
   const handleLogin = async (e) => {
     e.preventDefault();
@@ -24,13 +23,11 @@ const navigate = useNavigate();
     }
 
     if (!password) {
-      setError("Please enter the password");
+      setError("Please enter the password.");
       return;
     }
 
     setError("");
-
-  //Login API Call Here
 
     try {
       const response = await axiosInstance.post(API_PATHS.AUTH.LOGIN, {
@@ -40,33 +37,34 @@ const navigate = useNavigate();
 
       const { token } = response.data;
 
-      if(token) {
+      if (token) {
         localStorage.setItem("token", token);
-        updateUser(response.data)
+        updateUser(response.data);
         navigate("/dashboard");
       }
     } catch (error) {
-      if (error.response && error.response.data.message) {
-        setError(error.response.data.message);
-      } else {
-        setError("Something went wrong. Please try again.");
-      }
+      setError(
+        error.response?.data?.message || "Something went wrong. Please try again."
+      );
     }
   };
 
   return (
-    <div className="w-[90vw] md:w-[33vw] p-7 flex flex-col justify-center">
-      <h3 className="text-lg font-semibold text-black">Welcome Back</h3>
-      <p className="text-xs text-slate-700 mt-[5px] mb-6">
+    <div className="flex flex-col justify-center w-full">
+      <h3 className="text-xl font-semibold text-white">Welcome Back</h3>
+      <p className="text-sm text-slate-400 mt-1 mb-6">
         Please enter your details to log in
       </p>
-      <form onSubmit={handleLogin}>
+
+      <form onSubmit={handleLogin} className="flex flex-col gap-4">
         <Input
           value={email}
           onChange={({ target }) => setEmail(target.value)}
           label="Email Address"
           placeholder="john@example.com"
           type="text"
+          inputClass="bg-slate-800 text-white border border-violet-500 placeholder-slate-400"
+          labelClass="text-slate-300"
         />
 
         <Input
@@ -75,22 +73,27 @@ const navigate = useNavigate();
           label="Password"
           placeholder="Min 8 Characters"
           type="password"
+          inputClass="bg-slate-800 text-white border border-violet-500 placeholder-slate-400"
+          labelClass="text-slate-300"
         />
 
-        {error && <p className="text-red-500 text-xs pb-2.5">{error}</p>}
+        {error && <p className="text-red-500 text-sm -mt-2">{error}</p>}
 
-        <button type="submit" className="btn-primary">
+        <button
+          type="submit"
+          className="w-full flex items-center justify-center gap-2 text-sm font-semibold text-white bg-gradient-to-r from-violet-600 to-indigo-500 hover:from-violet-700 hover:to-indigo-600 px-5 py-2.5 rounded-full transition-all shadow-md"
+        >
           LOGIN
         </button>
 
-        <p className="text-[13px] text-slate-800 mt-3">
-          Don't have an account?{" "}
+        <p className="text-sm text-slate-400 mt-3 text-center">
+          Don’t have an account?{" "}
           <button
             type="button"
-            className="font-medium text-primary underline cursor-pointer"
+            className="font-semibold text-violet-400 hover:text-violet-300 underline"
             onClick={() => setCurrentPage('signup')}
           >
-            SignUp
+            Sign Up
           </button>
         </p>
       </form>

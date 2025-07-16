@@ -30,7 +30,6 @@ const CreateSessionForm = () => {
 
     const { role, experience, topicsToFocus } = formData;
 
-    // Required field validation
     if (!role || !experience || !topicsToFocus) {
       setError("Please fill all the required fields.");
       return;
@@ -40,7 +39,6 @@ const CreateSessionForm = () => {
     setIsLoading(true);
 
     try {
-      // Generate interview questions using AI
       const { data: generatedQuestions } = await axiosInstance.post(
         API_PATHS.AI.GENERATE_QUESTIONS,
         {
@@ -55,7 +53,6 @@ const CreateSessionForm = () => {
         throw new Error("Invalid response from AI service.");
       }
 
-      // Save session with questions
       const { data: sessionData } = await axiosInstance.post(
         API_PATHS.SESSIONS.CREATE,
         {
@@ -82,9 +79,9 @@ const CreateSessionForm = () => {
   };
 
   return (
-    <div className="w-[90vw] md:w-[35vw] p-7 flex flex-col justify-center">
-      <h3 className="text-lg font-semibold text-black">Start a New Interview Journey</h3>
-      <p className="text-xs text-slate-700 mt-[5px] mb-3">
+    <div className="w-full max-w-[95vw] md:max-w-[34vw] p-5 sm:p-6 bg-slate-900 border border-slate-700 rounded-xl shadow-lg text-slate-200 overflow-y-auto max-h-[80vh]">
+      <h3 className="text-lg font-semibold text-white">Start a New Interview Journey</h3>
+      <p className="text-xs text-slate-400 mt-1 mb-4">
         Fill out a few quick details and unlock your personalized set of interview questions!
       </p>
 
@@ -93,8 +90,10 @@ const CreateSessionForm = () => {
           value={formData.role}
           onChange={({ target }) => handleChange("role", target.value)}
           label="Target Role"
-          placeholder="e.g., Frontend Developer, UI/UX Designer, etc."
+          placeholder="e.g., Frontend Developer, UI/UX Designer"
           type="text"
+          inputClass="bg-slate-800 text-white border border-violet-500 placeholder-slate-400"
+          labelClass="text-slate-300"
         />
 
         <Input
@@ -103,32 +102,38 @@ const CreateSessionForm = () => {
           label="Years of Experience"
           placeholder="e.g., 1 year, 3 years, 5+ years"
           type="number"
+          inputClass="bg-slate-800 text-white border border-violet-500 placeholder-slate-400"
+          labelClass="text-slate-300"
         />
 
         <Input
           value={formData.topicsToFocus}
           onChange={({ target }) => handleChange("topicsToFocus", target.value)}
           label="Topics to Focus On"
-          placeholder="Comma-separated, e.g., React, Node.js, MongoDB"
+          placeholder="e.g., React, Node.js, MongoDB"
           type="text"
+          inputClass="bg-slate-800 text-white border border-violet-500 placeholder-slate-400"
+          labelClass="text-slate-300"
         />
 
         <Input
           value={formData.description}
           onChange={({ target }) => handleChange("description", target.value)}
-          label="Description"
+          label="Description (Optional)"
           placeholder="Any specific goals or notes for this session"
           type="text"
+          inputClass="bg-slate-800 text-white border border-violet-500 placeholder-slate-400"
+          labelClass="text-slate-300"
         />
 
-        {error && <p className="text-red-500 text-xs pb-2.5">{error}</p>}
+        {error && <p className="text-red-500 text-xs -mt-1">{error}</p>}
 
         <button
           type="submit"
-          className="btn-primary w-full mt-2 flex items-center justify-center gap-2"
+          className="w-full mt-2 flex items-center justify-center gap-2 text-sm font-semibold text-white bg-gradient-to-r from-violet-600 to-indigo-500 hover:from-violet-700 hover:to-indigo-600 px-5 py-2.5 rounded-full transition-all shadow-md disabled:opacity-60"
           disabled={isLoading}
         >
-          {isLoading && <SpinnerLoader />} 
+          {isLoading && <SpinnerLoader />}
           {isLoading ? "Creating..." : "Create Session"}
         </button>
       </form>

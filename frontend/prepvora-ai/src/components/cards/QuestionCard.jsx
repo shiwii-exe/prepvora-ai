@@ -31,7 +31,7 @@ const QuestionCard = ({
   const toggleExpand = () => setIsExpanded((prev) => !prev);
 
   return (
-    <div className="bg-white rounded-lg mb-4 overflow-hidden py-4 px-5 shadow-xl shadow-gray-100/70 border border-gray-100/60 group">
+     <div className="bg-white rounded-lg mb-4 overflow-hidden py-4 px-5 shadow-m border border-gray-200 group">
       {/* Top Section */}
       <div className="flex items-start justify-between">
         {/* Question Label + Text */}

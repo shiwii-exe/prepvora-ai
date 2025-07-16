@@ -9,37 +9,38 @@ const RoleInfoHeader = ({
   lastUpdated,
 }) => {
   return (
-    <div className="w-full px-4 py-8 bg-yellow-90">
-      <div className="relative bg-white/60 backdrop-blur-md rounded-xl border border-white/30 shadow-xl p-6 md:p-10 overflow-hidden w-full md:w-[65%] ml-2 md:ml-8 lg:ml-16">
-        
-        {/* Softer Inner Glow — neutral & frosted look */}
-        <div className="absolute inset-0 z-0 rounded-xl bg-gradient-to-r from-white via-neutral-200 to-white blur-xl opacity-20" />
+    <div className="w-full px-4 md:px-8 lg:px-1 py-6 md:py-8">
+      <div className="relative bg-white backdrop-blur-md border border-white/20 shadow-md rounded-xl p-6 md:p-10 transition-all max-w-full lg:max-w-[65%]">
+        {/* Soft blur layer */}
+        <div className="absolute inset-0 bg-gradient-to-br from-white via-gray-100 to-white opacity-20 blur-xl rounded-xl pointer-events-none" />
 
-        {/* Top Content */}
-        <div className="relative z-10 flex flex-col md:flex-row md:items-center md:justify-between gap-4">
-          <div className="flex flex-col gap-1">
-            <h1 className="text-3xl md:text-4xl font-bold text-gray-900">{role}</h1>
+        {/* Top Info */}
+        <div className="relative z-10 flex flex-col md:flex-row md:items-center md:justify-between gap-5">
+          <div>
+            <h1 className="text-2xl md:text-3xl font-bold text-gray-900 tracking-tight">
+              {role}
+            </h1>
             {topicsToFocus && (
-              <p className="text-sm text-gray-600">{topicsToFocus}</p>
+              <p className="text-sm text-gray-600 mt-1">{topicsToFocus}</p>
             )}
           </div>
 
-          <div className="flex flex-wrap gap-3 mt-2 md:mt-0">
-            <span className="text-xs font-semibold bg-black text-white px-4 py-2 rounded-full flex items-center gap-2 shadow-sm">
-              🧠 Experience: {experience} {experience === 1 ? "Year" : "Years"}
+          <div className="flex flex-wrap items-center gap-3">
+            <span className="text-xs font-medium bg-gradient-to-r from-indigo-600 to-violet-500 text-white px-4 py-1.5 rounded-full shadow-sm">
+              🧠 {experience} {experience === 1 ? "Year" : "Years"}
             </span>
-            <span className="text-xs font-semibold bg-black text-white px-4 py-2 rounded-full flex items-center gap-2 shadow-sm">
+            <span className="text-xs font-medium bg-gradient-to-r from-fuchsia-600 to-pink-500 text-white px-4 py-1.5 rounded-full shadow-sm">
               ❓ {questions} Questions
             </span>
-            <span className="text-xs font-semibold bg-black text-white px-4 py-2 rounded-full flex items-center gap-2 shadow-sm">
-              📅 Last Updated: {lastUpdated}
+            <span className="text-xs font-medium bg-gradient-to-r from-amber-500 to-orange-400 text-white px-4 py-1.5 rounded-full shadow-sm">
+              📅 {lastUpdated}
             </span>
           </div>
         </div>
 
-        {/* Optional Description */}
+        {/* Description */}
         {description && (
-          <p className="relative z-10 mt-6 text-sm text-gray-700 leading-relaxed">
+          <p className="relative z-10 mt-5 text-sm text-gray-700 leading-relaxed">
             {description}
           </p>
         )}

@@ -4,18 +4,18 @@ import { Link } from "react-router-dom";
 
 const Navbar = () => {
   return (
-    <div className='h-16 bg-white border border-b border-gray-200/50 backdrop-blur-[2px] py-2.5 px-4 md:px-0 sticky top-0 z-30'> 
-<div className='container mx-auto flex items-center justify-between gap-5'>
-    <Link to="/dashboard">
-    <h2 className='text-lg md:text-xl font-medium text-black leading-5'>
-Prepvora AI
-    </h2>
-    </Link>
+    <div className="h-16 bg-slate-900/80 border-b border-slate-800 backdrop-blur-md sticky top-0 z-30 px-4 md:px-0">
+      <div className="container mx-auto flex items-center justify-between h-full">
+        <Link to="/dashboard">
+          <h2 className="text-lg md:text-xl font-bold text-violet-400 hover:text-violet-300 transition">
+            Prepvora <span className="text-white">AI</span>
+          </h2>
+        </Link>
 
-    <ProfileInfoCard/>
-</div>
+        <ProfileInfoCard />
+      </div>
     </div>
-  )
-}
+  );
+};
 
-export default Navbar
+export default Navbar;

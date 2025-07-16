@@ -1,14 +1,12 @@
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
 import { useNavigate } from 'react-router-dom';
 import Input from '../../components/Inputs/Input';
 import ProfilePhotoSelector from '../../components/Inputs/ProfilePhotoSelector';
 import { validateEmail } from '../../Utils/helper';
-import { useContext } from 'react';
 import { UserContext } from '../../context/userContext';
 import axiosInstance from '../../Utils/axiosInstance';
 import { API_PATHS } from '../../Utils/apiPaths';
 import uploadImage from '../../Utils/uploadImage';
-
 
 const SignUp = ({ setCurrentPage }) => {
   const [profilePic, setProfilePic] = useState(null);
@@ -22,7 +20,6 @@ const SignUp = ({ setCurrentPage }) => {
 
   const handleSignup = async (e) => {
     e.preventDefault();
-
     let profileImageUrl = "";
 
     if (!fullName) {
@@ -42,86 +39,87 @@ const SignUp = ({ setCurrentPage }) => {
 
     setError("");
 
-    // SignUp API logic here 
     try {
-    // Upload image if present
-    if (profilePic){
-      const imgUploadRes = await uploadImage(profilePic);
-      profileImageUrl = imgUploadRes.imageUrl || " ";
-    }
+      if (profilePic) {
+        const imgUploadRes = await uploadImage(profilePic);
+        profileImageUrl = imgUploadRes.imageUrl || " ";
+      }
 
-const response = await axiosInstance.post(API_PATHS.AUTH.REGISTER, {
-  
-  name: fullName,
-  email,
-  password,
-  profileImageUrl,
+      const response = await axiosInstance.post(API_PATHS.AUTH.REGISTER, {
+        name: fullName,
+        email,
+        password,
+        profileImageUrl,
+      });
 
-})
-
-const { token } = response.data;
-if(token) {
-  localStorage.setItem("token", token);
-  updateUser(response.data);
-  navigate("/dashboard");
-}
+      const { token } = response.data;
+      if (token) {
+        localStorage.setItem("token", token);
+        updateUser(response.data);
+        navigate("/dashboard");
+      }
 
     } catch (error) {
-      if (error.response && error.response.data.message) {
-        setError(error.response.data.message);
-      } else {
-        setError("Something went wrong. Please try again.");
-      }
+      setError(
+        error.response?.data?.message || "Something went wrong. Please try again."
+      );
     }
   };
 
   return (
-    <div className="w-[90vw] md:w-[33vw] p-7 flex flex-col justify-center">
-      <h3 className="text-lg font-semibold text-black">Create an Account</h3>
-      <p className="text-xs text-slate-700 mt-[5px] mb-6">
+    <div className="flex flex-col justify-center w-full">
+      <h3 className="text-xl font-semibold text-white">Create an Account</h3>
+      <p className="text-sm text-slate-400 mt-1 mb-6">
         Join us today by entering your details below.
       </p>
 
-      <form onSubmit={handleSignup}>
+      <form onSubmit={handleSignup} className="flex flex-col gap-4">
         <ProfilePhotoSelector image={profilePic} setImage={setProfilePic} />
 
-        <div className="grid grid-cols-1 gap-2">
-          <Input
-            value={fullName}
-            onChange={({ target }) => setFullName(target.value)}
-            label="Full Name"
-            placeholder="John"
-            type="text"
-          />
+        <Input
+          value={fullName}
+          onChange={({ target }) => setFullName(target.value)}
+          label="Full Name"
+          placeholder="John"
+          type="text"
+          inputClass="bg-slate-800 text-white border border-violet-500 placeholder-slate-400"
+          labelClass="text-slate-300"
+        />
 
-          <Input
-            value={email}
-            onChange={({ target }) => setEmail(target.value)}
-            label="Email Address"
-            placeholder="john@example.com"
-            type="text"
-          />
+        <Input
+          value={email}
+          onChange={({ target }) => setEmail(target.value)}
+          label="Email Address"
+          placeholder="john@example.com"
+          type="text"
+          inputClass="bg-slate-800 text-white border border-violet-500 placeholder-slate-400"
+          labelClass="text-slate-300"
+        />
 
-          <Input
-            value={password}
-            onChange={({ target }) => setPassword(target.value)}
-            label="Password"
-            placeholder="Min 8 Characters"
-            type="password"
-          />
-        </div>
+        <Input
+          value={password}
+          onChange={({ target }) => setPassword(target.value)}
+          label="Password"
+          placeholder="Min 8 Characters"
+          type="password"
+          inputClass="bg-slate-800 text-white border border-violet-500 placeholder-slate-400"
+          labelClass="text-slate-300"
+        />
 
-        {error && <p className="text-red-500 text-xs pb-2.5">{error}</p>}
+        {error && <p className="text-red-500 text-sm -mt-2">{error}</p>}
 
-        <button type="submit" className="btn-primary">
+        <button
+          type="submit"
+          className="w-full flex items-center justify-center gap-2 text-sm font-semibold text-white bg-gradient-to-r from-violet-600 to-indigo-500 hover:from-violet-700 hover:to-indigo-600 px-5 py-2.5 rounded-full transition-all shadow-md"
+        >
           Sign Up
         </button>
 
-        <p className="text-[13px] text-slate-800 mt-3">
+        <p className="text-sm text-slate-400 mt-3 text-center">
           Already have an account?{" "}
           <button
             type="button"
-            className="font-medium text-primary underline cursor-pointer"
+            className="font-semibold text-violet-400 hover:text-violet-300 underline"
             onClick={() => setCurrentPage("login")}
           >
             Login

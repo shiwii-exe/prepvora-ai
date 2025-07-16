@@ -1,30 +1,33 @@
 @import url('https://fonts.googleapis.com/css2?family=Urbanist:ital,wght@0,100..900;1,100..900&display=swap');
 @import "tailwindcss";
 
+/* Theme variables */
 @theme {
   --font-display: "Urbanist", sans-serif;
   --breakpoint-3xl: 1920px;
-  --color-primary: #FF9324;
+  --color-primary: #8b5cf6;  /* Violet-500 */
 }
 
+/* Base styles for dark mode look */
 @layer base {
   html {
     font-family: var(--font-display);
   }
 
   body {
-    background-color: #fcfbcf;
+    background-color: #0f172a; /* slate-900 */
+    color: #f1f5f9; /* slate-100 */
     overflow-x: hidden;
   }
 }
 
-/* Custom scrollbar styling */
+/* Scrollbar */
 .custom-scrollbar::-webkit-scrollbar {
   width: 4px;
 }
 
 .custom-scrollbar::-webkit-scrollbar-thumb {
-  background-color: rgba(100, 100, 100, 0.4);
+  background-color: rgba(180, 150, 255, 0.3); /* violet touch */
   border-radius: 10px;
 }
 
@@ -32,8 +35,8 @@
   background: transparent;
 }
 
+/* Utility and animation styles */
 @layer utilities {
-  /* Animate text with a shine effect */
   @keyframes text-shine {
     0% {
       background-position: 0% 50%;
@@ -78,26 +81,26 @@
   }
 }
 
-/* Utility Classes */
+/* === Utility Classes for New Theme === */
 .input-box {
-  @apply w-full flex justify-between gap-3 text-sm text-black bg-gray-50/50 rounded px-4 py-3 mb-4 mt-3 border border-gray-100 outline-none focus-within:border-orange-300;
+  @apply w-full flex justify-between gap-3 text-sm text-slate-100 bg-slate-800/60 rounded px-4 py-3 mb-4 mt-3 border border-slate-600 outline-none focus-within:border-violet-500;
 }
 
 .btn-primary {
-  @apply w-full flex items-center justify-center gap-3 text-sm font-medium text-white bg-black shadow-lg shadow-orange-600/5 p-[10px] rounded-md my-1 hover:bg-orange-600/15 hover:text-black cursor-pointer;
+  @apply w-full flex items-center justify-center gap-3 text-sm font-medium text-white bg-violet-600 shadow-lg shadow-violet-500/20 p-[10px] rounded-md my-1 hover:bg-violet-700 hover:shadow-violet-400/30 transition;
 }
 
 .btn-small {
-  @apply flex items-center justify-center gap-3 bg-gradient-to-r from-[#FF9324] to-[#e99a4b] text-sm font-semibold text-white px-7 py-2 rounded-lg hover:bg-black hover:text-white transition-colors cursor-pointer hover:shadow-2xl hover:shadow-orange-300;
+  @apply flex items-center justify-center gap-3 bg-gradient-to-r from-violet-600 to-indigo-500 text-sm font-semibold text-white px-7 py-2 rounded-lg hover:bg-white hover:text-black transition-colors cursor-pointer hover:shadow-xl hover:shadow-violet-500/30;
 }
 
-/* Extra Buttons or Hover States */
 .btn-orange {
-  @apply bg-orange-600/5 p-[10px] rounded-md my-1 hover:bg-orange-600/15 hover:text-black cursor-pointer;
+  @apply bg-violet-700/10 text-violet-300 p-[10px] rounded-md my-1 hover:bg-violet-700/20 hover:text-white cursor-pointer;
 }
 
 .hljs {
-  background: #1e1e1e !important;
+  background: #0a0a0a !important;
   padding: 1rem;
   border-radius: 0.5rem;
+  color: #e2e8f0; /* text-slate-200 */
 }

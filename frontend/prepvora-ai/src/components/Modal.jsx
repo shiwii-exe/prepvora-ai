@@ -1,27 +1,20 @@
 import React from "react";
 
 const Modal = ({ children, isOpen, onClose, hideHeader, title }) => {
+  if (!isOpen) return null;
 
-    if(!isOpen) return null;
-    
-    return (
-    <div className="fixed inset-0 z-50 flex justify-center items-center w-full h-full bg-black/40">
-      {/*Modal Content*/}
-      <div
-        className={`relative flex flex-col bg-white shadow-lg rounded-lg overflow-hidden`}
-      >
-        {/*Modal Header */}
-        {!hideHeader && (
-          <div className="flex items-center justify-between p-4 border-b border-gray-200">
-            <h3 className="md:text-lg font-medium text-gray-900">{title}</h3>
-          </div>
-        )}
-
-        <button type="button" 
-        className="text-gray-400 bg-transparent hover:bg-orange-100 hover:text-gray-900 rounded-lg text-sm w-8 h-8 flex justify-center items-center absolute top-3.5 right-3.5 cursor-point"
-        onClick={onClose}>
+  return (
+    <div className="fixed inset-0 z-50 flex justify-center items-center w-full h-full bg-black/60 backdrop-blur-sm px-4">
+      {/* Modal Content */}
+      <div className="relative w-full max-w-md bg-slate-900 border border-slate-700 rounded-xl shadow-xl p-7 text-slate-200">
+        {/* Close Icon */}
+        <button
+          type="button"
+          onClick={onClose}
+          className="absolute top-4 right-4 text-slate-400 hover:text-white"
+        >
           <svg
-            className="w-3 h-3"
+            className="w-4 h-4"
             aria-hidden="true"
             xmlns="http://www.w3.org/2000/svg"
             fill="none"
@@ -36,10 +29,16 @@ const Modal = ({ children, isOpen, onClose, hideHeader, title }) => {
             />
           </svg>
         </button>
-        {/* Modal Body (Scrollable) */}
-        <div className="flex-1 overflow-y-auto custom-scrollbar">
-            {children}
-            </div>
+
+        {/* Optional Title */}
+        {!hideHeader && title && (
+          <h3 className="text-lg font-semibold text-white mb-5">{title}</h3>
+        )}
+
+        {/* Modal Body */}
+        <div className="overflow-y-auto max-h-[80vh] custom-scrollbar">
+          {children}
+        </div>
       </div>
     </div>
   );
