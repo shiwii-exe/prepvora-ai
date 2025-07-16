@@ -4,13 +4,29 @@ An AI-powered mock interview platform built with the MERN stack and integrated w
 
 ---
 
+<p align="center">
+  <img src="./public/preview-01.png" alt="PrepVora Screenshot" width="750"/>
+</p>
+
+<p align="center">
+  <img src="./public/preview-02.png" alt="PrepVora Screenshot" width="750"/>
+</p>
+
+<p align="center">
+  <i>A glimpse of PrepVora AI’s dynamic and clean interview interface</i>
+</p>
+
+---
+
 ## 🚀 Features
 
-- 🎯 Role- and experience-based question generation
-- 🤖 Gemini API-powered mock interviews
-- 📌 "Pin", "Explain More" and "More Questions" options
-- 🕓 Session updating and revisiting feature
-- ⚡ Fast, responsive design
+- 🎯 Role- and experience-based question generation  
+- 🤖 Gemini API-powered mock interviews  
+- 📌 "Pin", "Explain More", and "More Questions" options  
+- 🕓 Session updating and revisiting feature  
+- ⚡ Fast, responsive design  
+
+---
 
 ## 🛠️ Tech Stack
 
@@ -39,4 +55,3 @@ An AI-powered mock interview platform built with the MERN stack and integrated w
 - **ESLint** (with plugins for React & hooks)
 - **Nodemon** for dev server reload
 - **Vite** for fast builds
-
