@@ -29,6 +29,11 @@ app.use("/api/ai/generate-explanation", protect, generateConceptExplanation);
 // Static files from uploads
 app.use("/uploads", express.static(path.join(__dirname, "uploads")));
 
+app.get('/api/test', (req, res) => {
+  res.json({ message: "Test route is working!" });
+});
+
+
 // --- Production Specific Configuration ---
 if (process.env.NODE_ENV === "production") {
   // Construct the absolute path to your frontend's 'dist' directory.
@@ -54,6 +59,7 @@ if (process.env.NODE_ENV === "production") {
   // This route should also be carefully placed relative to other dev-specific routes.
   app.get("/", (req, res) => res.send("🌐 API is running..."));
 }
+
 
 // --- Error Handling Middleware (Optional, but recommended) ---
 // This should be the last middleware in your chain.

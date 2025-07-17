@@ -12,7 +12,6 @@
     "dev": "npm run dev:backend & npm run dev:frontend",
     
    "render-build": "npm install --prefix backend && npm install --prefix frontend/prepvora-ai && npm run build --prefix frontend/prepvora-ai",
-
     "render-start": "npm start --prefix backend"
   },
   "keywords": [
