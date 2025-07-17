@@ -1,0 +1,27 @@
+{
+  "name": "prepvora-ai",
+  "version": "1.0.0",
+  "description": "Full-stack application with Express backend and Vite React frontend.",
+  "main": "backend/server.js",
+  "scripts": {
+    "install:all": "npm install && npm install --prefix backend && npm install --prefix frontend/prepvora-ai",
+    "build:frontend": "npm run build --prefix frontend/prepvora-ai",
+    "start:backend": "npm start --prefix backend",
+    "dev:backend": "npm run dev --prefix backend",
+    "dev:frontend": "npm run dev --prefix frontend/prepvora-ai",
+    "dev": "npm run dev:backend & npm run dev:frontend",
+    "render-build": "npm run build:frontend",
+    "render-start": "npm start --prefix backend"
+  },
+  "keywords": [
+    "fullstack",
+    "express",
+    "react",
+    "vite",
+    "mongodb"
+  ],
+  "author": "Shiwangi",
+  "license": "MIT",
+  "dependencies": {},
+  "devDependencies": {}
+}
