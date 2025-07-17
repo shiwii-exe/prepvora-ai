@@ -29,10 +29,6 @@ app.use("/api/ai/generate-explanation", protect, generateConceptExplanation);
 // Static files from uploads
 app.use("/uploads", express.static(path.join(__dirname, "uploads")));
 
-app.get('/api/test', (req, res) => {
-  res.json({ message: "Test route is working!" });
-});
-
 
 // --- Production Specific Configuration ---
 if (process.env.NODE_ENV === "production") {
